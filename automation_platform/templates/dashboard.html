@@ -1,0 +1,68 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Dashboard</h1>
+        <p>Hosgeldiniz, {{ user.get_full_name }}!</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card bg-primary text-white mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-users"></i> Departmanlar</h5>
+                <p class="card-text">Departman yonetimi</p>
+                <a href="{% url 'department_list' %}" class="btn btn-light">Goruntule</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card bg-success text-white mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-robot"></i> Otomasyonlar</h5>
+                <p class="card-text">Otomasyon listesi</p>
+                <a href="#" class="btn btn-light">Goruntule</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card bg-info text-white mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-file"></i> Sayfalar</h5>
+                <p class="card-text">Sayfa yonetimi</p>
+                <a href="#" class="btn btn-light">Goruntule</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Hizli Erisim</h5>
+            </div>
+            <div class="card-body">
+                <a href="/admin/" class="btn btn-primary me-2">
+                    <i class="fas fa-cog"></i> Admin Panel
+                </a>
+                <a href="{% url 'department_create' %}" class="btn btn-secondary me-2">
+                    <i class="fas fa-plus"></i> Yeni Departman
+                </a>
+                <a href="#" class="btn btn-secondary me-2">
+                    <i class="fas fa-plus"></i> Yeni Otomasyon
+                </a>
+                <a href="#" class="btn btn-info">
+                    <i class="fas fa-chart-bar"></i> Raporlar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

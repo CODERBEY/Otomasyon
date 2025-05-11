@@ -1,0 +1,8 @@
+﻿from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.department_list, name='department_list'),
+    path('create/', views.department_create, name='department_create'),
+    path('<int:pk>/', views.department_detail, name='department_detail'),
+]

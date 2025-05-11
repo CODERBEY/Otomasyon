@@ -1,0 +1,41 @@
+# Temel Django Gereksinimleri
+django==5.0.1
+djangorestframework==3.14.0
+django-cors-headers==4.3.1
+django-extensions==3.2.3
+django-filter==23.5
+django-storages==1.14.2
+psycopg2
+whitenoise==6.6.0
+
+# Güvenlik Için
+django-csp==3.7
+django-ratelimit==4.1.0
+django-defender==0.9.7
+django-otp==1.3.0
+pyotp==2.9.0
+django-axes==6.1.1
+gunicorn==21.2.0
+
+# Kullanici Arayüzü
+django-crispy-forms==2.1
+crispy-bootstrap5==0.7
+django-widget-tweaks==1.5.0
+
+# API ve Entegrasyon
+requests==2.31.0
+httpx==0.26.0
+
+# Görev Isleme
+celery==5.3.6
+redis==5.0.1
+
+# Test ve Debug
+pytest-django==4.7.0
+coverage==7.4.1
+
+# Windows için ek gereksinim
+wfastcgi==3.0.0
+
+# Pillow (resim isleme için)
+Pillow

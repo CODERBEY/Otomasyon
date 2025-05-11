@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ automation.name }} - Detay{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>
+        {% if automation.icon %}
+            <i class="fas {{ automation.icon }}"></i>
+        {% endif %}
+        {{ automation.name }}
+    </h1>
+    <div>
+        {% if automation.status == 'active' %}
+        <a href="{% url 'automation_execute' automation.pk %}" class="btn btn-success">
+            <i class="fas fa-play"></i> Calistir
+        </a>
+        {% endif %}
+        <a href="{% url 'automation_list' %}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Geri Don
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Otomasyon Bilgileri</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Kod:</strong> {{ automation.code }}</p>
+                <p><strong>Aciklama:</strong> {{ automation.description }}</p>
+                <p><strong>Tip:</strong> {{ automation.get_type_display }}</p>
+                <p><strong>Durum:</strong> 
+                    <span class="badge {% if automation.status == 'active' %}bg-success{% else %}bg-secondary{% endif %}">
+                        {{ automation.get_status_display }}
+                    </span>
+                </p>
+                <p><strong>Giris Noktasi:</strong> <code>{{ automation.entry_point }}</code></p>
+                {% if automation.parameters %}
+                <p><strong>Parametreler:</strong></p>
+                <pre class="bg-light p-2"><code>{{ automation.parameters|pprint }}</code></pre>
+                {% endif %}
+                <p><strong>Olusturulma Tarihi:</strong> {{ automation.created_at|date:"d.m.Y H:i" }}</p>
+                <p><strong>Olusturan:</strong> 
+                    {% if automation.created_by %}
+                        {{ automation.created_by.get_full_name }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h5>Son Calistirmalar</h5>
+            </div>
+            <div class="card-body">
+                {% if executions %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Kullanici</th>
+                                    <th>Baslama Zamani</th>
+                                    <th>Durum</th>
+                                    <th>Islemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for execution in executions %}
+                                <tr>
+                                    <td>{{ execution.user.get_full_name }}</td>
+                                    <td>{{ execution.started_at|date:"d.m.Y H:i:s" }}</td>
+                                    <td>
+                                        {% if execution.status == 'completed' %}
+                                            <span class="badge bg-success">Tamamlandi</span>
+                                        {% elif execution.status == 'failed' %}
+                                            <span class="badge bg-danger">Basarisiz</span>
+                                        {% elif execution.status == 'running' %}
+                                            <span class="badge bg-primary">Calisiyor</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">{{ execution.get_status_display }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" onclick="showExecutionDetails({{ execution.id }})">
+                                            <i class="fas fa-info-circle"></i> Detay
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">Bu otomasyon henuz calistirilmamis.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Erisim Izni Olan Departmanlar</h5>
+            </div>
+            <div class="card-body">
+                {% if automation.departments.all %}
+                    <ul class="list-unstyled">
+                        {% for dept in automation.departments.all %}
+                        <li><i class="fas fa-building"></i> {{ dept.name }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-muted">Departman atanmamis.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Calistirma Detay Modal -->
+<div class="modal fade" id="executionModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Calistirma Detaylari</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="executionDetails">
+                <!-- Detaylar AJAX ile yuklenecek -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function showExecutionDetails(executionId) {
+    // Simdilik basit bir alert gosterelim
+    alert('Calistirma ID: ' + executionId + '\nDetay sayfasi henuz hazir degil.');
+}
+</script>
+{% endblock %}

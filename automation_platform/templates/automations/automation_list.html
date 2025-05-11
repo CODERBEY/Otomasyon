@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Otomasyonlar{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Otomasyonlar</h1>
+    {% if user.is_staff %}
+    <a href="{% url 'automation_create' %}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Yeni Otomasyon
+    </a>
+    {% endif %}
+</div>
+
+<div class="row">
+    {% for automation in automations %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {% if automation.icon %}
+                        <i class="fas {{ automation.icon }}"></i>
+                    {% endif %}
+                    {{ automation.name }}
+                </h5>
+                <p class="card-text">{{ automation.description|truncatewords:20 }}</p>
+                <div class="mb-2">
+                    <span class="badge {% if automation.status == 'active' %}bg-success{% else %}bg-secondary{% endif %}">
+                        {{ automation.get_status_display }}
+                    </span>
+                    <span class="badge bg-info">{{ automation.get_type_display }}</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'automation_detail' automation.pk %}" class="btn btn-sm btn-primary">
+                    <i class="fas fa-eye"></i> Detay
+                </a>
+                {% if automation.status == 'active' %}
+                <a href="{% url 'automation_execute' automation.pk %}" class="btn btn-sm btn-success">
+                    <i class="fas fa-play"></i> Calistir
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">
+            Henuz otomasyon eklenmemis.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

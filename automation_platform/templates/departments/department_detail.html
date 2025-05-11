@@ -1,0 +1,88 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}{{ department.name }} - Detay{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>{{ department.name }}</h1>
+    <a href="{% url 'department_list' %}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Geri Dön
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Departman Bilgileri</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Kod:</strong> {{ department.code }}</p>
+                <p><strong>Açiklama:</strong> {{ department.description|default:"-" }}</p>
+                <p><strong>Üst Departman:</strong> 
+                    {% if department.parent %}
+                        {{ department.parent.name }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </p>
+                <p><strong>Yönetici:</strong> 
+                    {% if department.manager %}
+                        {{ department.manager.get_full_name }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </p>
+                <p><strong>Durum:</strong> 
+                    {% if department.is_active %}
+                        <span class="badge bg-success">Aktif</span>
+                    {% else %}
+                        <span class="badge bg-danger">Pasif</span>
+                    {% endif %}
+                </p>
+                <p><strong>Olusturulma Tarihi:</strong> {{ department.created_at|date:"d.m.Y H:i" }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Departman Üyeleri</h5>
+            </div>
+            <div class="card-body">
+                {% if members %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Kullanici</th>
+                                    <th>Ana Departman</th>
+                                    <th>Katilim Tarihi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for member in members %}
+                                <tr>
+                                    <td>{{ member.user.get_full_name }}</td>
+                                    <td>
+                                        {% if member.is_primary %}
+                                            <span class="badge bg-primary">Evet</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">Hayir</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ member.join_date|date:"d.m.Y" }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">Bu departmanda henüz üye yok.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
