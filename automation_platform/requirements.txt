@@ -1,12 +1,23 @@
 # Temel Django Gereksinimleri
-django==5.0.1
+Django==5.0.1
+python-decouple==3.8
+psycopg2-binary==2.9.9
 djangorestframework==3.14.0
 django-cors-headers==4.3.1
 django-extensions==3.2.3
 django-filter==23.5
-django-storages==1.14.2
-psycopg2
-whitenoise==6.6.0
+django-crispy-forms==2.1
+crispy-bootstrap5==2023.10
+django-widget-tweaks==1.5.0
+django-axes==6.1.1
+django-jazzmin==2.8.0
+pandas==2.0.3
+matplotlib==3.7.2
+openpyxl==3.1.2
+pytesseract==0.3.10
+Pillow==10.0.0
+PyPDF2==3.0.1
+pdf2image==1.16.3
 
 # Güvenlik Için
 django-csp==3.7

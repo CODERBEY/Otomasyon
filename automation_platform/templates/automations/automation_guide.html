@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}Otomasyon Kullanım Kılavuzu{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Otomasyon Platformu Kullanım Kılavuzu</h1>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-book"></i> Genel Bilgiler</h5>
+                </div>
+                <div class="card-body">
+                    <p>Otomasyon platformu, departmanların ihtiyaç duyduğu çeşitli işlemleri otomatik olarak gerçekleştirmenizi sağlar.</p>
+                    <ul>
+                        <li>Sadece departmanınıza atanmış otomasyonları görebilirsiniz</li>
+                        <li>Her otomasyon farklı parametreler alabilir</li>
+                        <li>Çalıştırma sonuçları kayıt altına alınır</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-play-circle"></i> Otomasyon Nasıl Çalıştırılır?</h5>
+                </div>
+                <div class="card-body">
+                    <ol>
+                        <li><strong>Otomasyon Listesine Gidin:</strong> Dashboard'dan "Otomasyonlar" butonuna tıklayın</li>
+                        <li><strong>Otomasyon Seçin:</strong> Kullanmak istediğiniz otomasyonu listeden seçin</li>
+                        <li><strong>Detayları İnceleyin:</strong> Otomasyonun ne yaptığını ve hangi parametreleri aldığını okuyun</li>
+                        <li><strong>Çalıştır Butonuna Tıklayın:</strong> Yeşil "Çalıştır" butonuna basın</li>
+                        <li><strong>Parametreleri Girin:</strong> İstenen bilgileri doldurun (dosya yükleme, metin girişi vb.)</li>
+                        <li><strong>İşlemi Başlatın:</strong> "Çalıştır" butonuna basarak otomasyonu başlatın</li>
+                        <li><strong>Sonuçları Bekleyin:</strong> İşlem tamamlanana kadar bekleyin</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-file-excel"></i> Excel İşleme Otomasyonu Örneği</h5>
+                </div>
+                <div class="card-body">
+                    <h6>Excel Özet Çıkarıcı Kullanımı:</h6>
+                    <ol>
+                        <li>Otomasyonu seçip "Çalıştır" butonuna tıklayın</li>
+                        <li>"Excel Dosyası" alanına .xlsx veya .xls dosyanızı yükleyin</li>
+                        <li>"İşlem Tipi" olarak:
+                            <ul>
+                                <li><strong>summary:</strong> Dosyanın genel özetini alır</li>
+                                <li><strong>filter:</strong> Belirli kriterlere göre filtreleme yapar</li>
+                                <li><strong>pivot:</strong> Pivot tablo oluşturur</li>
+                            </ul>
+                        </li>
+                        <li>"Çalıştır" butonuna basın ve sonuçları bekleyin</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Sık Karşılaşılan Sorunlar</h5>
+                </div>
+                <div class="card-body">
+                    <h6>1. Otomasyon listesinde hiçbir şey göremiyorum</h6>
+                    <p>Departmanınıza henüz otomasyon atanmamış olabilir. Yöneticinizle iletişime geçin.</p>
+                    
+                    <h6>2. Dosya yükleme alanı görünmüyor</h6>
+                    <p>Otomasyon yöneticisi tarafından yanlış yapılandırılmış olabilir. Sistem yöneticisine bildirin.</p>
+                    
+                    <h6>3. Çalıştırma başarısız oldu</h6>
+                    <ul>
+                        <li>Dosya formatının doğru olduğundan emin olun</li>
+                        <li>Dosya boyutunun 10MB'ı geçmediğinden emin olun</li>
+                        <li>Tüm zorunlu alanları doldurduğunuzdan emin olun</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-info-circle"></i> Hızlı İpuçları</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check text-success"></i> Dosya yüklemeden önce formatını kontrol edin</li>
+                        <li><i class="fas fa-check text-success"></i> Zorunlu alanlar (*) ile işaretlidir</li>
+                        <li><i class="fas fa-check text-success"></i> İşlem sırasında sayfayı kapatmayın</li>
+                        <li><i class="fas fa-check text-success"></i> Sonuçları daha sonra görebilirsiniz</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5><i class="fas fa-phone"></i> Destek</h5>
+                </div>
+                <div class="card-body">
+                    <p>Sorun yaşadığınızda:</p>
+                    <ul>
+                        <li>Sistem Yöneticisi: admin@sirket.com</li>
+                        <li>Dahili: 1234</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

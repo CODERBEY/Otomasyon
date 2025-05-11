@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ automation.name }} - Kullanım Kılavuzu{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <h1 class="mb-4">{{ automation.name }} - Kullanım Kılavuzu</h1>
+            
+            <div class="card">
+                <div class="card-body">
+                    {% if automation.usage_guide %}
+                        {{ automation.usage_guide|linebreaks }}
+                    {% else %}
+                        <p class="text-muted">Bu otomasyon için kullanım kılavuzu henüz eklenmemiş.</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="mt-3">
+                <a href="{% url 'automation_detail' automation.pk %}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Geri Dön
+                </a>
+                <a href="{% url 'automation_execute' automation.pk %}" class="btn btn-primary">
+                    <i class="fas fa-play"></i> Otomasyonu Çalıştır
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

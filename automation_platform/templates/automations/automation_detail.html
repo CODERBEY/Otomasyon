@@ -16,6 +16,11 @@
             <i class="fas fa-play"></i> Calistir
         </a>
         {% endif %}
+        {% if automation.usage_guide %}
+        <a href="{% url 'automation_usage_guide' automation.pk %}" class="btn btn-info">
+            <i class="fas fa-book"></i> Kullanım Kılavuzu
+        </a>
+        {% endif %}
         <a href="{% url 'automation_list' %}" class="btn btn-secondary">
             <i class="fas fa-arrow-left"></i> Geri Don
         </a>
@@ -86,9 +91,9 @@
                                         {% endif %}
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-info" onclick="showExecutionDetails({{ execution.id }})">
-                                            <i class="fas fa-info-circle"></i> Detay
-                                        </button>
+                                        <a href="{% url 'automation_execution_result' execution.id %}" class="btn btn-sm btn-info">
+                                            <i class="fas fa-eye"></i> Sonuç
+                                        </a>
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -121,28 +126,4 @@
         </div>
     </div>
 </div>
-
-<!-- Calistirma Detay Modal -->
-<div class="modal fade" id="executionModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Calistirma Detaylari</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="executionDetails">
-                <!-- Detaylar AJAX ile yuklenecek -->
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-function showExecutionDetails(executionId) {
-    // Simdilik basit bir alert gosterelim
-    alert('Calistirma ID: ' + executionId + '\nDetay sayfasi henuz hazir degil.');
-}
-</script>
 {% endblock %}

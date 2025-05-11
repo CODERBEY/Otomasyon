@@ -11,6 +11,7 @@
 </div>
 
 <div class="row">
+    {% if user.is_staff %}
     <div class="col-md-4">
         <div class="card bg-primary text-white mb-3">
             <div class="card-body">
@@ -20,17 +21,19 @@
             </div>
         </div>
     </div>
+    {% endif %}
     
-    <div class="col-md-4">
+    <div class="col-md-{% if user.is_staff %}4{% else %}6{% endif %}">
         <div class="card bg-success text-white mb-3">
             <div class="card-body">
                 <h5 class="card-title"><i class="fas fa-robot"></i> Otomasyonlar</h5>
                 <p class="card-text">Otomasyon listesi</p>
-                <a href="#" class="btn btn-light">Goruntule</a>
+                <a href="{% url 'automation_list' %}" class="btn btn-light">Goruntule</a>
             </div>
         </div>
     </div>
     
+    {% if user.is_staff %}
     <div class="col-md-4">
         <div class="card bg-info text-white mb-3">
             <div class="card-body">
@@ -40,6 +43,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
 
 <div class="row mt-4">
@@ -49,18 +53,25 @@
                 <h5 class="mb-0">Hizli Erisim</h5>
             </div>
             <div class="card-body">
+                {% if user.is_staff %}
                 <a href="/admin/" class="btn btn-primary me-2">
                     <i class="fas fa-cog"></i> Admin Panel
                 </a>
                 <a href="{% url 'department_create' %}" class="btn btn-secondary me-2">
                     <i class="fas fa-plus"></i> Yeni Departman
                 </a>
-                <a href="#" class="btn btn-secondary me-2">
+                <a href="{% url 'automation_create' %}" class="btn btn-secondary me-2">
                     <i class="fas fa-plus"></i> Yeni Otomasyon
                 </a>
                 <a href="#" class="btn btn-info">
                     <i class="fas fa-chart-bar"></i> Raporlar
                 </a>
+                {% else %}
+                <!-- Normal kullanıcılar için sadece temel butonlar -->
+                <a href="{% url 'automation_list' %}" class="btn btn-primary me-2">
+                    <i class="fas fa-robot"></i> Otomasyonlarım
+                </a>
+                {% endif %}
             </div>
         </div>
     </div>

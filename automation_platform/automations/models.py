@@ -1,7 +1,7 @@
 ﻿from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
-from departments.models import Department  # Bu satırı ekleyin
+from departments.models import Department
 
 User = get_user_model()
 
@@ -21,6 +21,14 @@ class Automation(models.Model):
         ('report', _('Rapor')),
     )
     
+    UI_TYPE_CHOICES = (
+        ('form', _('Form')),
+        ('file_upload', _('Dosya Yukleme')),
+        ('wizard', _('Adim Adim')),
+        ('custom', _('Ozel')),
+    )
+    
+    usage_guide = models.TextField(_('Kullanim Kilavuzu'), blank=True, help_text=_('Markdown formatinda yazabilirsiniz'))
     name = models.CharField(_('Otomasyon Adi'), max_length=100)
     code = models.CharField(_('Otomasyon Kodu'), max_length=50, unique=True)
     description = models.TextField(_('Aciklama'))
@@ -29,7 +37,16 @@ class Automation(models.Model):
     icon = models.CharField(_('Ikon'), max_length=50, blank=True)
     entry_point = models.CharField(_('Giris Noktasi'), max_length=255)
     parameters = models.JSONField(_('Parametreler'), default=dict, blank=True)
-    departments = models.ManyToManyField(Department, related_name='automations', blank=True)  # Bu satırı ekleyin
+    departments = models.ManyToManyField(Department, related_name='automations', blank=True)
+    
+    # Yeni alanlar
+    project_path = models.CharField(_('Proje Yolu'), max_length=500, blank=True)
+    requirements_file = models.FileField(_('Requirements'), upload_to='requirements/', blank=True, null=True)
+    config_template = models.JSONField(_('Konfigurasyon Sablonu'), default=dict, blank=True)
+    input_fields = models.JSONField(_('Giris Alanlari'), default=list, blank=True)
+    output_format = models.CharField(_('Cikti Formati'), max_length=50, default='json')
+    ui_type = models.CharField(_('Arayuz Tipi'), max_length=20, choices=UI_TYPE_CHOICES, default='form')
+    
     created_at = models.DateTimeField(_('Olusturma Tarihi'), auto_now_add=True)
     updated_at = models.DateTimeField(_('Guncelleme Tarihi'), auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='created_automations')
@@ -42,7 +59,6 @@ class Automation(models.Model):
     def __str__(self):
         return self.name
 
-# Geri kalan kod aynı kalacak...
 
 class AutomationExecution(models.Model):
     STATUS_CHOICES = (
